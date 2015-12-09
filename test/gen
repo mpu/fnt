@@ -3,3 +3,5 @@ abcdefghijklmnopqrstuvwxyz
 the quick brown fox jumps over the lazy dog
 ABCDEFGHIJKLMNOPQRSTUVWXYZ
 THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG
+#include <stdio.h>
+*(*p++)(x+y-z);
