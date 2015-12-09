@@ -179,18 +179,23 @@ fdump(FILE *f)
 int
 main(int ac, char *av[])
 {
-	char *bits, *pb;
+	char *bits, *pb, *p;
 	FILE *f;
 	int y, ch;
 
 	if (ac < 3) {
 	usage:
-		fprintf(stderr, "usage: edit WxH U+NNNN\n");
+		fprintf(stderr, "usage: edit FONTPATH U+NNNN\n");
 		exit(1);
 	}
 
 	snprintf(gly.path, sizeof gly.path, "%s/%s", av[1], av[2]);
-	if (sscanf(av[1], "%d x %d", &gly.w, &gly.h) != 2)
+	p = strrchr(av[1], '/');
+	if (!p)
+		p = av[1];
+	else
+		p++;
+	if (sscanf(p, "%d x %d", &gly.w, &gly.h) != 2)
 		goto usage;
 	if (!(bits = calloc(gly.w * gly.h, 1))
 	||  !(gly.bits = calloc(gly.h, sizeof (char *))))
