@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <signal.h>
 #include <dirent.h>
 #include <sys/types.h>
 #include <X11/Xlib.h>
@@ -15,6 +16,7 @@ void xconfigure(XEvent *);
 void xbutton(XEvent *);
 void xkey(XEvent *);
 void tread(void);
+void sighup(int);
 
 void (*xhandler[LASTEvent])(XEvent *) = {
 	[Expose] = xexpose,
@@ -257,6 +259,19 @@ tread()
 	txt.nr = n;
 }
 
+void
+sighup(int sig)
+{
+	XEvent ev;
+
+	fload();
+	memset(&ev, 0, sizeof ev);
+	ev.type = Expose;
+	ev.xexpose.window = xc.win;
+	XSendEvent(xc.dsp, xc.win, False, ExposureMask, &ev);
+	XFlush(xc.dsp);
+}
+
 int
 main(int ac, char *av[])
 {
@@ -267,6 +282,7 @@ main(int ac, char *av[])
 		exit(1);
 	}
 	fnt.path = av[1];
+	signal(SIGHUP, sighup);
 	fload();
 	tread();
 	xinit();
