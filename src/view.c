@@ -228,6 +228,10 @@ tread()
 			r = c;
 		}
 		else if (c < 0xc0) {
+			rd = 0;
+			r = 0;
+		}
+		else if (c < 0xe0) {
 			rd = 1;
 			r = c & 0x1f;
 		}
