@@ -1,5 +1,3 @@
-/*% cc -Wall -lncurses % -o #
- */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
