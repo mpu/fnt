@@ -4,4 +4,11 @@ the quick brown fox jumps over the lazy dog
 ABCDEFGHIJKLMNOPQRSTUVWXYZ
 THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG
 #include <stdio.h>
-*(*p++)(x+y-z);
+*(*p++)(x+&y-z); c[2] d{3}
+"abc";
+'def';
+`ghi`;
+!@#$%^&* x:x; <+=-> ?:;.,  x^y d_b
+<[({(|)})]>
+/etc/passwd \/ /\
+ls ~user|grep xx
