@@ -1,4 +1,5 @@
 #!/bin/sh
+# See LICENSE for legal matters.
 
 set -e
 

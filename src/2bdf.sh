@@ -1,4 +1,5 @@
 #!/bin/sh
+# See LICENSE for legal matters.
 
 # Your font directory may contain a Settings
 # file that can override all the defaults
