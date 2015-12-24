@@ -73,11 +73,11 @@ do
 	{
 		hex = 0;
 		split(\$0, chars, \"\")
-		for (i=1; i<=$W; i++)
-			if (chars[i] == \".\")
-				hex = hex * 2;
-			else
+		for (i=1; i<=8; i++)
+			if (chars[i] == \"x\")
 				hex = hex * 2 + 1;
+			else
+				hex = hex * 2;
 		printf \"%02X\\n\", hex
 	}
 	" $G
