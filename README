@@ -43,3 +43,19 @@ it was pretty fun to design.
 -- mpu
 
 http://lists.suckless.org/dev/1512/28005.html
+
+
+
+
+Installing BDF fonts on Linux
+-----------------------------
+
+    mkdir ~/.fonts/
+    chmod go+rx ~/.fonts/
+
+    xset fp+ ~/.fonts/      # put this in .xinitrc
+    xset fp rehash          # put this in .xinitrc
+    
+    sh 2bdf.sh FONTPATH > ~/.fonts/myfont.bdf
+    mkfontdir ~/.fonts/
+    fc-cache -f
