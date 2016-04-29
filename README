@@ -1,4 +1,64 @@
 Bitmap Font Edition Tools
 -------------------------
 
+Hi folks, 
+
+I wrote some tools to design bitmap fonts!
+
+Two C programs, 'edit' and 'view', allow respectively to 
+edit one glyph and view a text with the font currently 
+being designed. The 'view' tool can get bitten by SIGHUP 
+signals to refresh the view. To do this automatically 
+when the font gets changed, I made a little shell script 
+that uses inotify-tools to monitor the font directory 
+energy-efficiently, it is 'watch.sh'. When done editing 
+use the '2bdf.sh' shell script to convert the font to 
+BDF (usable by X11). It does not work for fonts wider 
+than 8 pixels, though, so you might have to patch it. 
+
+The font format is I think suckless, a font is simply 
+stored in a directory named WxH where W and H are the 
+pixel dimensions of the font. Each glyph is then 
+stored as an ASCII file named U+NNNN where NNNN is the 
+Unicode codepoint of the glyph. Here is what is stored 
+in 7x10/U+0041 (glyph 'A') for the leon font 
+
+....... 
+.xxx... 
+x...x.. 
+x...x.. 
+xxxxx.. 
+x...x.. 
+x...x.. 
+x...x.. 
+....... 
+....... 
+
+That way, a font can be stored using git and edited 
+using standard text-editors in a reasonable way. 
+
+I now use the font (leon) packaged in the git repo, 
+it was pretty fun to design. 
+
+-- mpu
+
 http://lists.suckless.org/dev/1512/28005.html
+
+
+
+
+Installing BDF fonts on Linux
+-----------------------------
+
+    mkdir ~/.fonts/
+    chmod go+rx ~/.fonts/
+
+    xset fp+ ~/.fonts/      # put this in .xinitrc
+    xset fp rehash          # put this in .xinitrc
+    
+    sh 2bdf.sh FONTPATH > ~/.fonts/myfont.bdf
+    mkfontdir ~/.fonts/
+    fc-cache -f
+
+Extra information can also be found at:
+  https://www.freebsd.org/doc/handbook/x-fonts.html
