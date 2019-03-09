@@ -50,15 +50,26 @@ http://lists.suckless.org/dev/1512/28005.html
 Installing BDF fonts on Linux
 -----------------------------
 
-    mkdir ~/.fonts/
-    chmod go+rx ~/.fonts/
+    # According to Debian's /etc/fonts/fonts.conf
+    # ~/.fonts support is going to go away, when
+    # that's the case, you can try to use
+    # ~/.config/fonts below
+    fontsdir=~/.fonts/
 
-    xset fp+ ~/.fonts/      # put this in .xinitrc
-    xset fp rehash          # put this in .xinitrc
-    
-    sh 2bdf.sh FONTPATH > ~/.fonts/myfont.bdf
-    mkfontdir ~/.fonts/
+    mkdir $fontsdir
+    chmod go+rx $fontsdir
+
+    sh 2bdf.sh FONTPATH > $fontsdir/myfont.bdf
+    mkfontdir $fontsdir
     fc-cache -f
 
+    xset fp+ $fontsdir      # put this in .xinitrc
+    xset fp rehash          # put this in .xinitrc
+
+    # That might not be sufficient.  On my Debian
+    # computer /etc/fonts/conf.d/70-no-bitmaps.conf
+    # had to be removed.  See [2] below.
+
 Extra information can also be found at:
-  https://www.freebsd.org/doc/handbook/x-fonts.html
+  [1] https://www.freebsd.org/doc/handbook/x-fonts.html
+  [2] https://wiki.ubuntu.com/Fonts#Enabling_Bitmapped_Fonts
