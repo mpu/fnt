@@ -58,7 +58,7 @@ FONT_VERSION "1"
 COPYRIGHT ""
 ENDPROPERTIES
 
-CHARS $(ls $FONT | grep "^U\\+" | wc -l)
+CHARS $(ls $FONT | grep -v "^Settings$" | wc -l)
 EOI
 
 for path in $(cd $FONT && ls -1)
@@ -74,7 +74,7 @@ do
 	fi
 
 	CODE=$(printf "%d" "0x${G#*U+}")
-	echo STARTCHAR $(basename $G)
+	echo STARTCHAR "U+${G}"
 	echo ENCODING $CODE
 	echo SWIDTH 960 0
 	echo DWIDTH $W 0
