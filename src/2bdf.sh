@@ -63,7 +63,7 @@ EOI
 
 for path in $(cd $FONT && ls -1)
 do
-	if printf "%s" "${path}" | grep '^U+'
+	if printf "%s" "${path}" | grep -q '^U+'
 	then
 		G="$(printf "%s" "${path}" | cut -b3-)"
 	elif grep -q "^${path}," "$(dirname "${0}")"/entities.csv
