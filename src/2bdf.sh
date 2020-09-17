@@ -61,8 +61,18 @@ ENDPROPERTIES
 CHARS $(ls $FONT | grep "^U\\+" | wc -l)
 EOI
 
-for G in $FONT/U+*
+for path in $(cd $FONT && ls -1)
 do
+	if printf "%s" "${path}" | grep '^U+'
+	then
+		G="$(printf "%s" "${path}" | cut -b3-)"
+	elif grep -q "^${path}," "$(dirname "${0}")"/entities.csv
+	then
+		G="$(grep "^${path}," "$(dirname "${0}")"/entities.csv | cut -d, -f2)"
+	else
+		continue
+	fi
+
 	CODE=$(printf "%d" "0x${G#*U+}")
 	echo STARTCHAR $(basename $G)
 	echo ENCODING $CODE
@@ -82,7 +92,7 @@ do
 				hex = hex * 2;
 		printf \"%02X\\n\", hex
 	}
-	" $G
+	" "${FONT}/${path}"
 
 	echo ENDCHAR
 done
